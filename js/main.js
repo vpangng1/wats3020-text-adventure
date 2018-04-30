@@ -9,36 +9,38 @@ let currentPage = null;
 // Fill in the blanks below to complete each TODO task.                       //
 ////////////////////////////////////////////////////////////////////////////////
 
-// TODO: Prompt the user for their name. Store the name in the variable `playerName`.
+
+
+playerName = prompt('Please enter a character name'); //prompts the user for a name
 
 
 
-// TODO: Create a function called `getCurrentPage()`. It should accept one
-// parameter, which is the `slug` for the current page. This function will fetch
-// the current page and return a page object using the `slug` value for a key.
+function getCurrentPage(slug) {
+  currentPage = storyData[slug]; // this function accepts the slug for a parameter and uses that as a key to set current page variable with a page object
+  return currentPage; // this function will also returns the page object
+}
 
 
 
-// TODO: Create a function called `recordChoice()` that will accept a `slug`
-// parameter and add it to the `choiceList` Array (probably using `push()`).
+function recordChoices(slug) { 
+  choiceList.push(slug); // this function records the slug parameter and adds the value into the initialized choiceList array
+}
 
 
 
-// TODO: Create a function called `undoChoice()` that will remove the last
-// `slug` in the `choiceList` Array and then will return the last `slug` in the
-// `choiceList` Array.
+function undoChoice() { 
+  //choiceList.pop(); // this function when called removes the last entry of the choiceList array
+  //return choiceList[choiceList.length - 1]; // this function will return the last value of the choiceList array
+  return choiceList[0]; // the undo function will now return to the very beginning of the story
+}
 
 
 
-// TODO: Create a function called `changePage()` that accepts a parameter called
-// `slug` and which handles "turning the page" in three steps:
-//  1. It should call the `recordChoice()` function (and give it the `slug` as
-//     a parameter.
-//  2. It should set the `currentPage` value by calling the `getCurrentPage()`
-//     function (and give it the `slug` as a parameter).
-//  3. It should invoke the `updatePage()` function (and give it the
-//     `currentPage` object as a parameter).
-
+function changePage(slug) { // this function takes a slug parameter
+  recordChoices(slug); // calls the recordChoice function with the slug parameter
+  currentPage = getCurrentPage(slug); // calls getCurrentPage function with the slug parameter and sets currentPage with that new value
+  updatePage(currentPage); // updatePage is called with currentPage as its parameter
+}
 
 
 ///////////////////////////////////////////////////
@@ -258,5 +260,6 @@ undo.addEventListener('click', function(e){
 })
 
 currentPage = storyData.p1;
+recordChoices('p1');
 updatePage(currentPage);
 
